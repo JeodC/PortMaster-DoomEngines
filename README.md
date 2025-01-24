@@ -35,6 +35,9 @@ PK3_2=./mods/LoDMusicLoops.pk3
 
 Since we gave the mod its own subfolder and `.load.txt` file, it appears in the launcher as its own option despite using shared data files.
 
+## The Master Levels
+Doom II comes with an addon called The Master Levels, but they're packaged as one WAD per level. You can use a WAD editor to merge them into one WAD (example, `MASTER.WAD`) and load that as a mod to `DOOM2`. If you manage to do this, you will want to also load the [Master Levels Menu Interface](https://www.doomworld.com/idgames/utils/frontends/zdmlmenu) mod so you can actually select the levels.
+
 ## Building
 There is no need to build, as [GZDoom](https://github.com/ZDoom/gzdoom) offers `.deb` releases.
 

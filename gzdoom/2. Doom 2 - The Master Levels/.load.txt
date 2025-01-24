@@ -1,4 +1,5 @@
 PATH=./data
 DATA=DOOM2
 PK3_1=./mods/MASTER.WAD
+PK3_2=./mods/ZDMLMENU.pk3
 -- end --
