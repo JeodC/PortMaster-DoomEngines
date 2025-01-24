@@ -1,0 +1,5 @@
+PATH=./data
+DATA=DOOM
+PK3_1=brutalv21.pk3
+PK3_2=LoDMusicLoops.pk3
+-- end --
