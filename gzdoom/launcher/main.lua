@@ -89,38 +89,55 @@ end
 -- Function to load menu options from subfolders, excluding folders in the exclusion list
 function loadMenuOptions()
     local cwd = love.filesystem.getSourceBaseDirectory()
-
+    local dataDir = cwd .. "/data"  -- Path to the data folder
     menus.mainMenu = {}
+    fileMappings = {}
 
+    -- Get a list of subfolders in the current directory
     local handle = io.popen("ls -d " .. cwd .. "/*/ 2>/dev/null")
     local result = handle:read("*a")
     handle:close()
 
+    -- Iterate through each subfolder
     for folderPath in result:gmatch("[^\n]+") do
         local folderName = folderPath:match("([^/]+)%/?$")
 
         if folderName and not isExcluded(folderName) then
             local fullPath = cwd .. "/" .. folderName
 
+            -- Read the .load.txt file
             local dataExtension = readLoadTxt(fullPath)
             if dataExtension then
-                -- Strip any leading dots from dataExtension if present
-                dataExtension = dataExtension:gsub("^%.$", "")
+                local dataFilePath = dataDir .. "/" .. dataExtension:upper() .. ".WAD"
 
-                if hasDataFiles(cwd, dataExtension) then
-                    print("[LOG]: Found " .. dataExtension:upper() .. ".WAD for " .. folderName)
+                -- Debugging log for file path
+                print("[DEBUG]: Checking for file " .. dataFilePath)
+
+                -- Check if the file exists
+                local fileExists = love.filesystem.getInfo(dataFilePath, "file") ~= nil
+                if not fileExists then
+                    -- Fallback to io.open for manual check
+                    local file = io.open(dataFilePath, "r")
+                    if file then
+                        fileExists = true
+                        file:close()
+                    end
+                end
+
+                if fileExists then
+                    -- Add folder to menu and map it
                     table.insert(menus.mainMenu, folderName)
                     fileMappings[folderName] = fullPath
                 else
-                    print("[LOG]: No " .. dataExtension:upper() .. ".WAD file found in ./data for " .. folderName)
-                    print("[LOG]: Linux is a case-sensitive filesystem. If data files are there, check for case sensitivity.")
+                    print("[LOG]: File " .. dataExtension:upper() .. ".WAD not found in ./data for " .. folderName)
                 end
             else
-                print("[LOG]: Skipping folder " .. folderName .. " due to missing .load.txt or invalid data")
+                print("[LOG]: Skipping folder " .. folderName .. " due to missing or invalid .load.txt")
             end
         end
     end
 
+    -- Add an "Exit" option
     table.insert(menus.mainMenu, "Exit")
 end
 
