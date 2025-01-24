@@ -1,0 +1,3 @@
+PATH=./data
+DATA=HERETIC
+-- end --

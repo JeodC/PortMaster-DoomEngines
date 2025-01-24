@@ -1,0 +1,4 @@
+PATH=./data
+DATA=DOOM2
+PK3_1=./data/TNT.WAD
+-- end --
