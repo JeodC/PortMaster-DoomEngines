@@ -1,3 +1,2 @@
 PATH=./data
 DATA=STRIFE1
--- end --

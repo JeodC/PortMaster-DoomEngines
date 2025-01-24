@@ -1,3 +1,2 @@
 PATH=./data
 DATA=DOOM
--- end --

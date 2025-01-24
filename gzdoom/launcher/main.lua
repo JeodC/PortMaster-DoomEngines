@@ -35,120 +35,136 @@ local exclusionList = {
 -- DYNAMIC MENU LOADING -------------------------------------------------------------------
 -------------------------------------------------------------------------------------------
 
--- Function to read the .load.txt file and return the DATA extension to check
+-- Function to read the .load.txt file and return the DATA extension and PK3 file paths
 function readLoadTxt(folderPath)
+    local cwd = love.filesystem.getSourceBaseDirectory()  -- Get current directory path
     local loadTxtPath = folderPath .. "/.load.txt"
     local file = io.open(loadTxtPath, "r")
     
     if not file then
         print("[LOG]: .load.txt not found in", folderPath)
-        return nil
+        return nil, nil, nil
     end
     
-    local dataExtension = nil
+    local wadPath = nil
+    local fileName = nil
+    local pk3Files = {}
     
     for line in file:lines() do
-        -- Parse the DATA key
-        local key, value = line:match("^(%w+)%s*=%s*(.+)$")
-        if key == "DATA" then
-            dataExtension = value  -- Get the data type (extension)
+        -- Remove leading/trailing whitespace from the line
+        line = line:match("^%s*(.-)%s*$")
+        
+        -- Parse key-value pairs using a more flexible regex
+        local key, value = line:match("^(%S+)%s*=%s*(.+)$")
+        if key and value then
+            if key == "PATH" then
+                wadPath = cwd .. "/" .. value  -- WAD file path
+            elseif key == "DATA" then
+                fileName = value  -- Data extension (e.g., "FREEDOOM2")
+            elseif key:match("^PK3_%d+$") then
+                table.insert(pk3Files, cwd .. "/" .. value)  -- Resolve PK3 file path
+            end
+        else
+            print("[LOG]: Skipping malformed line in .load.txt:", line)
         end
     end
     
     file:close()
     
-    if dataExtension then
-        -- Return the data extension (e.g., "SDM")
-        return dataExtension
-    else
-        print("[LOG]: DATA key not found in .load.txt for", folderPath)
-        return nil
+    if not wadPath then
+        print("[LOG]: PATH key not found in .load.txt for", folderPath)
     end
+    if not fileName then
+        print("[LOG]: DATA key not found in .load.txt for", folderPath)
+    end
+    
+    return wadPath, fileName, pk3Files
 end
 
--- Function to check if any files with the given name and .WAD extension exist in ./data
-function hasDataFiles(cwd, wadname)
-    local dataFolder = cwd .. "/data"
-
-    -- Remove any leading dots from wadname if present
-    wadname = wadname:gsub("^%.$", "")
-
-    -- Use `find` command with `-iname` for case-insensitive search
-    local command = "find \"" .. dataFolder .. "\" -type f -iname \"" .. wadname .. ".wad\" 2>/dev/null"
-    local handle = io.popen(command)
+-- Function to check if any files with the given filename exist in the WAD folder (PATH)
+function hasDataFiles(wadPath, fileName)
+    -- Instead of cwd, we should use wadPath (the folder from the .load.txt PATH key)
+    local dataFolder = wadPath
+    local handle = io.popen("find \"" .. dataFolder .. "\" -type f -name '" .. fileName .. ".WAD' 2>/dev/null")
     local result = handle:read("*a")
     handle:close()
+    
+    -- Return true if the WAD file is found, false otherwise
+    return result ~= ""  
+end
 
-    -- Trim trailing whitespace from the result
-    result = result:gsub("%s+$", "")
-
-    -- Return `true` since matching files are found
-    return true
+-- Function to check if all PK3 files exist
+function checkPk3Files(pk3Files)
+    local allExist = true
+    for _, pk3Path in ipairs(pk3Files) do
+        -- Check using io.popen to verify if each PK3 file exists
+        local handle = io.popen("test -f \"" .. pk3Path .. "\" && echo 'exists' || echo 'missing'")
+        local result = handle:read("*a")
+        handle:close()
+        
+        if result:match("missing") then
+            print("[LOG]: Missing PK3 file:", pk3Path)
+            allExist = false
+        end
+    end
+    return allExist
 end
 
 -- Function to load menu options from subfolders, excluding folders in the exclusion list
 function loadMenuOptions()
-    local cwd = love.filesystem.getSourceBaseDirectory()
-    local dataDir = cwd .. "/data"  -- Path to the data folder
-    menus.mainMenu = {}
-    fileMappings = {}
+    local cwd = love.filesystem.getSourceBaseDirectory()  -- Get current directory path
 
-    -- Get a list of subfolders in the current directory
-    local handle = io.popen("ls -d " .. cwd .. "/*/ 2>/dev/null")
+    menus.mainMenu = {}  -- Clear the main menu to avoid duplication
+
+    -- Execute shell command to list directories
+    local handle = io.popen("ls -d " .. cwd .. "/*/")  -- List directories only
     local result = handle:read("*a")
     handle:close()
 
-    -- Iterate through each subfolder
+    -- Iterate over subfolders
     for folderPath in result:gmatch("[^\n]+") do
-        local folderName = folderPath:match("([^/]+)%/?$")
-
+        local folderName = folderPath:match("([^/]+)%/?$")  -- Extract folder name
+        
+        -- Ensure folderName is valid and not excluded
         if folderName and not isExcluded(folderName) then
             local fullPath = cwd .. "/" .. folderName
 
-            -- Read the .load.txt file
-            local dataExtension = readLoadTxt(fullPath)
+            -- Read the .load.txt file for DATA extension and PK3 files
+            local wadPath, dataExtension, pk3Files = readLoadTxt(fullPath)
+            
             if dataExtension then
-                local dataFilePath = dataDir .. "/" .. dataExtension:upper() .. ".WAD"
-
-                -- Debugging log for file path
-                print("[DEBUG]: Checking for file " .. dataFilePath)
-
-                -- Check if the file exists
-                local fileExists = love.filesystem.getInfo(dataFilePath, "file") ~= nil
-                if not fileExists then
-                    -- Fallback to io.open for manual check
-                    local file = io.open(dataFilePath, "r")
-                    if file then
-                        fileExists = true
-                        file:close()
+                -- Check if DATA files exist (e.g., .WAD file)
+                if hasDataFiles(cwd, dataExtension) then
+                    -- Check if all PK3 files exist
+                    if checkPk3Files(pk3Files) then
+                        -- Add the folder to the main menu if all files exist
+                        table.insert(menus.mainMenu, folderName)
+                        fileMappings[folderName] = fullPath
+                    else
+                        print("[LOG]: Skipping folder " .. folderName .. " - Missing PK3 files")
                     end
-                end
-
-                if fileExists then
-                    -- Add folder to menu and map it
-                    table.insert(menus.mainMenu, folderName)
-                    fileMappings[folderName] = fullPath
                 else
-                    print("[LOG]: File " .. dataExtension:upper() .. ".WAD not found in ./data for " .. folderName)
+                    print("[LOG]: No " .. dataExtension .. ".WAD file found in " .. wadPath .. " for", folderName)
                 end
             else
-                print("[LOG]: Skipping folder " .. folderName .. " due to missing or invalid .load.txt")
+                print("[LOG]: Skipping folder due to missing or invalid .load.txt")
             end
         end
     end
 
-    -- Add an "Exit" option
+    -- Add the "Exit" option manually at the end of the menu
     table.insert(menus.mainMenu, "Exit")
 end
 
+
+-- Function to check if a folder is in the exclusion list
 function isExcluded(folderName)
-    local exclusionSet = {}
+    local exclusionSet = {}  -- Create a set for faster lookup
     for _, excluded in ipairs(exclusionList) do
         exclusionSet[excluded] = true
     end
     return exclusionSet[folderName] or false
 end
-
 
 -------------------------------------------------------------------------------------------
 -- FONT SETTINGS --------------------------------------------------------------------------
