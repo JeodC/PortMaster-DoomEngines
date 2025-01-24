@@ -13,7 +13,7 @@ The launcher lists folders as games and looks for `.load.txt` files inside them.
 
 - `PATH` - This is always `./data`
 - `DATA` - File name of the WAD to use
-- `PK3_#` - Any `.pk3` files to load after the data, can use up to four
+- `PK3_#` - Any `.pk3` files to load after the data, can use up to four.  Accepts WAD and ZIP, too!
 - `DIFF` - Sets the difficulty level (0 = I'm too young to die, 4 = Nightmare)
 - `MAP` - Warps to map (e1m1 = Doom Episode 1 Map 1, 01 = Doom II map 01)
 
@@ -22,6 +22,17 @@ Follow this example `Doom/.load.txt` which launches vanilla Doom:
 ```
 PATH=./data
 DATA=DOOM
+
+```
+
+This example `SIGIL/.load.txt` launches SIGIL by John Romero:
+
+```
+PATH=./data
+DATA=DOOM
+PK3_1=./mods/SIGIL_v1_21.wad
+DIFF=3
+MAP=e5m1
 
 ```
 
@@ -46,9 +57,9 @@ Doom II comes with an addon called The Master Levels, but they're packaged as on
 There is no need to build, as [GZDoom](https://github.com/ZDoom/gzdoom) offers `.deb` releases.
 
 ## Thanks
-id Software -- Original game
-GZDoom Team -- GZDoom, see license file for individual contributions
-Andrew Hushult -- The [music](https://www.youtube.com/watch?v=Yctbs7A4KHk) used for the launcher
-Slayer366 -- Original GZDoom push and port assistance
-DDRSoul -- Customized Slayer's GZDoom bundle for muOS.
-PortMaster Discord -- Testers
+id Software -- Original game  
+GZDoom Team -- GZDoom, see license file for individual contributions  
+Andrew Hushult -- The [music](https://www.youtube.com/watch?v=Yctbs7A4KHk) used for the launcher  
+Slayer366 -- Original GZDoom push and port assistance  
+DDRSoul -- Customized Slayer's GZDoom bundle for muOS.  
+PortMaster Discord -- Testers  
