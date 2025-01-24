@@ -76,6 +76,12 @@ if [ -n "$FOLDER" ]; then
             PK3|PK3_1|PK3_2|PK3_3|PK3_4)
                 ARGS="$ARGS -file $value"
                 ;;
+            DIFF)
+                ARGS="$ARGS +set skill $value"
+                ;;
+            MAP)
+                ARGS="$ARGS +map $value"
+                ;;
         esac
     done < "${FOLDER}/.load.txt"
     IFS=$TMP
