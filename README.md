@@ -13,7 +13,7 @@ The launcher lists folders as games and looks for `.load.txt` files inside them.
 
 - `PATH` - This is always `./data`
 - `DATA` - File name of the WAD to use
-- `PK3_#` - Any `.pk3` files to load after the data, can use up to four.  Accepts WAD and ZIP, too!
+- `PK3_#` - Any `.pk3`, `.wad`, or `.zip` files to load after the data; can use up to four.
 - `DIFF` - Sets the difficulty level (0 = I'm too young to die, 4 = Nightmare)
 - `MAP` - Warps to map (e1m1 = Doom Episode 1 Map 1, 01 = Doom II map 01)
 
@@ -61,5 +61,5 @@ id Software -- Original game
 GZDoom Team -- GZDoom, see license file for individual contributions  
 Andrew Hushult -- The [music](https://www.youtube.com/watch?v=Yctbs7A4KHk) used for the launcher  
 Slayer366 -- Original GZDoom push and port assistance  
-DDRSoul -- Customized Slayer's GZDoom bundle for muOS.  
+DDRSoul -- Previously customized Slayer366's GZDoom bundle for muOS.  
 PortMaster Discord -- Testers  
