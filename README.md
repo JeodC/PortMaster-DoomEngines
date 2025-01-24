@@ -20,6 +20,7 @@ Follow this example `Doom/.load.txt` which launches vanilla Doom:
 ```
 PATH=./data
 DATA=DOOM
+
 ```
 
 This example `Legend of Doom/.load.txt` launches the mod The Legend of Doom:
@@ -29,6 +30,7 @@ PATH=./data
 DATA=FREEDOOM2
 PK3_1=./mods/LegendOfDoom-1.1.0.pk3
 PK3_2=./mods/LoDMusicLoops.pk3
+
 ```
 
 Since we gave the mod its own subfolder and `.load.txt` file, it appears in the launcher as its own option despite using shared data files.
