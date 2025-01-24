@@ -14,7 +14,7 @@ The launcher lists folders as games and looks for `.load.txt` files inside them.
 - `PATH` - This is always `./data`
 - `DATA` - File name of the WAD to use
 - `PK3_#` - Any `.pk3` files to load after the data, can use up to four
-- `DIFF` - Sets the difficulty level (0 = I'm too young to die, 5 = Nightmare)
+- `DIFF` - Sets the difficulty level (0 = I'm too young to die, 4 = Nightmare)
 - `MAP` - Warps to map (e1m1 = Doom Episode 1 Map 1, 01 = Doom II map 01)
 
 Follow this example `Doom/.load.txt` which launches vanilla Doom:
