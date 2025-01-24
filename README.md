@@ -28,8 +28,8 @@ This example `Legend of Doom/.load.txt` launches the mod The Legend of Doom:
 ```
 PATH=./data
 DATA=FREEDOOM2
-PK3_1=LegendOfDoom-1.1.0.pk3
-PK3_2=LoDMusicLoops.pk3
+PK3_1=./mods/LegendOfDoom-1.1.0.pk3
+PK3_2=./mods/LoDMusicLoops.pk3
 -- end --
 ```
 

@@ -74,7 +74,7 @@ if [ -n "$FOLDER" ]; then
                 ARGS="$ARGS -iwad $value.WAD"
                 ;;
             PK3|PK3_1|PK3_2|PK3_3|PK3_4)
-                ARGS="$ARGS -file $GAMEDIR/mods/$value"
+                ARGS="$ARGS -file $value"
                 ;;
         esac
     done < "${FOLDER}/.load.txt"
