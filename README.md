@@ -46,8 +46,9 @@ Doom II comes with an addon called The Master Levels, but they're packaged as on
 There is no need to build, as [GZDoom](https://github.com/ZDoom/gzdoom) offers `.deb` releases.
 
 ## Thanks
-id Software -- Original game  
+id Software -- Original game
 GZDoom Team -- GZDoom, see license file for individual contributions
-Andrew Hushult -- The [music](https://www.youtube.com/watch?v=Yctbs7A4KHk) used for the launcher  
-Slayer366 -- Original GZDoom push and port assistance  
+Andrew Hushult -- The [music](https://www.youtube.com/watch?v=Yctbs7A4KHk) used for the launcher
+Slayer366 -- Original GZDoom push and port assistance
+DDRSoul -- Customized Slayer's GZDoom bundle for muOS.
 PortMaster Discord -- Testers
