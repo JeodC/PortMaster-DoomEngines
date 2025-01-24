@@ -1,4 +1,0 @@
-PATH=./data
-DATA=DOOM
-PK3_1=./mods/brutalv21.pk3
--- end --
