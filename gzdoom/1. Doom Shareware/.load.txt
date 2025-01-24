@@ -1,3 +1,0 @@
-PATH=./data
-DATA=DOOM19S
--- end --

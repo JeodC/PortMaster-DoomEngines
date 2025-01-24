@@ -1,2 +1,0 @@
-PATH=./data
-DATA=DOOM2

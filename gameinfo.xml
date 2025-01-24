@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <gamelist>
 	<game>
-		<path>./GZ Doom.sh</path>
-		<name>GZ Doom</name>
-		<desc>GZ Doom and launcher to play Doom WAD files and mods.</desc>
-		<image>./gzdoom/cover.png</image>
+		<path>./doomengines.sh</path>
+		<name>Doom + Doom II</name>
+		<desc>Doom engines and launcher to play Doom WAD files and mods.</desc>
+		<image>./doomengines/cover.png</image>
 		<releasedate>19950430</releasedate>
 		<developer>id Software</developer>
 		<publisher>Various</publisher>

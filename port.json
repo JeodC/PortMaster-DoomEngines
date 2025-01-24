@@ -1,20 +1,20 @@
 {
   "version": 3,
-  "name": "gzdoom.zip",
+  "name": "doomengines.zip",
   "items": [
-    "GZ Doom.sh",
-    "gzdoom"
+    "doomengines.sh",
+    "doomengines"
   ],
   "items_opt": [],
   "attr": {
-    "title": "GZ Doom",
+    "title": "Doom + Doom II",
     "porter": [
       "Slayer366",
 	  "DDRSoul",
       "Jeod",
 	  "Speedrun"
     ],
-    "desc": "GZ Doom comes to PortMaster! A Love2D launcher makes selecting games and mods easy. See the readme for instructions and details.\n\nIncludes shareware demo files and freedoom.",
+    "desc": "Doom engines! A Love2D launcher makes selecting games and mods easy. See the readme for instructions and details.\n\nIncludes shareware demo files and freedoom.",
     "desc_md": null,
     "inst": "Comes with shareware files for Doom and freedoom bundle for mod use. Add your full game files to their respective folders to play.",
     "inst_md": null,
