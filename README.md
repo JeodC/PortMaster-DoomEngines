@@ -9,7 +9,7 @@ GZ Doom is on version `4.11.3` which is the latest known version to have functio
 Crispy Doom is on version `7.0.0`.
 
 ## Play
-To use addon mods, place `.pk3` files in `ports/doomengines/mods` and list the `.pk3` files to load in `doomfiles/*.doom` for the relevant game. The launcher will search `doomfiles` and list its subfolders as well as any `.doom` files. Selecting a folder within the launcher will move into that subfolder, and pressing B will move backwards in the hierarchy.
+To use addon mods, place `.pk3` files in `ports/doomengines/mods` (or whatever folder you want really) and list the `.pk3` files to load in `doomfiles/*.doom` for the relevant game. The launcher will search `doomfiles` and list its subfolders as well as any `.doom` files. Selecting a folder within the launcher will move into that subfolder, and pressing B will move backwards in the hierarchy.
 
 Use the Left Shoulder and Right Shoulder buttons in the launcher to select which engine to use.
 
@@ -76,7 +76,7 @@ This example `doomfiles/Addons/Sigil.doom` launches SIGIL by John Romero with th
 
 ```
 IWAD=iwads/DOOM.WAD
-MOD=mods/SIGIL_v1_21.wad
+MOD=mods/SIGIL.wad
 DIFF=3
 MAP=e5m1
 -- end --
@@ -92,8 +92,10 @@ MOD=mods/LoDMusicLoops.pk3
 -- end --
 ```
 
+You do not need to adhere to the existing folder structure. For example, one tester preferred to keep single map mods separate from gameplay altering mods, and so they created `doomengines/maps`. This still follows the filepath rules for file loading, so `MOD=maps/SIGIL.wad` is just as valid as `MOD=mods/SIGIL.wad`.
+
 ## The Master Levels
-Doom II comes with an addon called The Master Levels, but they're packaged as one WAD per level. You can use a WAD editor to merge them into one WAD (example, `MASTER.WAD`) and load that as a mod to `DOOM2`. If you manage to do this, you will want to also load the [Master Levels Menu Interface](https://www.doomworld.com/idgames/utils/frontends/zdmlmenu) mod so you can actually select the addon.
+Doom II comes with an addon called The Master Levels, but they're sometimes packaged as one WAD per level. You can use a WAD editor to merge them into one WAD (example, `masterlevels.wad` how it is for the commercial `Doom + Doom II` release) and load that as a mod to `DOOM2`. If you manage to do this, you will want to also load the [Master Levels Menu Interface](https://www.doomworld.com/idgames/utils/frontends/zdmlmenu) mod so you can actually select the addon.
 
 ## Thanks
 id Software -- Original games  
