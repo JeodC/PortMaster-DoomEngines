@@ -1,4 +1,4 @@
-ENGINE=gzdoom
+ENGINE=gzdoom_4.14.2/gzdoom
 IWAD=iwads/DOOM2.WAD
 MOD=mods/Castlevania.ipk3
 -- end --

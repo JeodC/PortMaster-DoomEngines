@@ -1,4 +1,4 @@
-ENGINE=gzdoom
+ENGINE=gzdoom_4.14.2/gzdoom
 IWAD=iwads/tnt.wad
 MOD=mods/brutalv21.pk3
 MOD=mods/hd/DHTP-2019_11_17.pk3

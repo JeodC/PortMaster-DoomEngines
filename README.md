@@ -4,7 +4,7 @@
 This port comes with the free Doom shareware and Freedoom1 and Freedoom2 WAD files. To use your own, place your WAD files in `ports/doomengines/iwads`.
 
 ## Versions
-GZ Doom is on version `4.11.3` which is the latest known version to have functional level teleports. Doom Fusion requires at least `4.13.0` which has broken level teleports.
+GZDoom has two versions available, `4.14.2` and `4.11.3`. The latest version is used by default. See the `Mod` section below to use the older version -- add line `ENGINE=gzdoom_4.11.3/gzdoom` to your `.doom` file.
 
 Crispy Doom is on version `7.0.0`.
 
@@ -85,7 +85,7 @@ MAP=e5m1
 This example `doomfiles/Mods/The Legend of Doom.doom` launches the mod The Legend of Doom which only runs in GZ Doom:
 
 ```
-ENGINE=gzdoom
+ENGINE=gzdoom_4.14.2/gzdoom
 IWAD=iwads/FREEDOOM2.WAD
 MOD=mods/LegendOfDoom-1.1.0.pk3
 MOD=mods/LoDMusicLoops.pk3

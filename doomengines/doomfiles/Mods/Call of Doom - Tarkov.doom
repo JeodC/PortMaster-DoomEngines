@@ -1,4 +1,4 @@
-ENGINE=gzdoom
+ENGINE=gzdoom_4.14.2/gzdoom
 IWAD=iwads/doom.wad
 MOD=mods/(001)_CodTarkov_FileA_VanillaDOOMver.pk3
 MOD=mods/ZZD_CodTarkov_FileB_Graphics.wad

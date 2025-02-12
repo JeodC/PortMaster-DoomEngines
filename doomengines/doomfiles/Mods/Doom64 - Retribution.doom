@@ -1,4 +1,4 @@
-ENGINE=gzdoom
+ENGINE=gzdoom_4.14.2/gzdoom
 IWAD=iwads/doom2.wad
 MOD=mods/d64rtr[v1.5].wad
 MOD=mods/d64rtr_brightmaps.pk3
